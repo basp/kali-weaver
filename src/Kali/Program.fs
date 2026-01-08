@@ -1,4 +1,6 @@
-﻿type Language =
+﻿open System.Globalization
+
+type Language =
     | Dutch
     | English
     | Quenya
@@ -28,15 +30,33 @@ type VocalStyle =
     | Growling
     | Whispering
 
+type GlitchEffect =
+    | Bitcrush
+    | Stutter
+    | TimeSlip
+    | BufferDrag
+    | DataCorrupt
+    | PacketLoss
+    | PhaseTear
+    | GrainBurst
+    | HardClip
+    | SoftClip
+    | ReverseShard
+    | PitchWarp
+    | FrameDrop
+    | StaticBloom
+    
 type Section = {
     Name: string
     Kind: SectionType
     Energy: EnergyLevel
     Vocals: VocalStyle
-    Language: Option<Language>
+    Language: Language option
     Tags: string list
     Variations: string list
+    Glitches: GlitchEffect list
 }
+
 
 type Track = {
     Title: string
@@ -145,17 +165,42 @@ module Variation =
         else
             baseText
 
-module Compiler =
+module GlitchText =
+    let describe = function
+        | Bitcrush -> "bit‑crushed fragments"
+        | Stutter -> "rapid glitch stutters"
+        | TimeSlip -> "time‑slipped echoes"
+        | BufferDrag -> "dragged buffer smears"
+        | DataCorrupt -> "corrupted digital bursts"
+        | PacketLoss -> "packet‑loss dropouts"
+        | PhaseTear -> "phase‑torn transients"
+        | GrainBurst -> "granular noise bursts"
+        | HardClip -> "hard‑clipped distortion"
+        | SoftClip -> "soft‑clipped saturation"
+        | ReverseShard -> "reverse‑shard slices"
+        | PitchWarp -> "pitch‑warped artifacts"
+        | FrameDrop -> "frame‑dropped pulses"
+        | StaticBloom -> "static blooms"
+
+module Compiler =    
+    let describeGlitches glitches =
+        glitches
+        |> List.map GlitchText.describe
+        |> String.concat ", "
+
     let compileSection (s: Section) =
         let energy = EnergyText.describe s.Energy
         let vocals = Vocals.describe s.Vocals s.Language
         let tags = String.concat ", " s.Tags
-
+        let glitchText =
+            if List.isEmpty s.Glitches
+            then ""
+            else ", " + describeGlitches s.Glitches
         let baseText =
             $"{s.Name}: {energy}, {vocals}, {tags}"
 
         Variation.maybeAddGlitch baseText
-
+    
     let compileTrack (t: Track) =
         let title = $"Title: {t.Title}"
         let tags = "Style: " + (String.concat ", " t.GlobalTags)
@@ -166,7 +211,6 @@ module Compiler =
             |> String.concat " | "
 
         $"{title}. {tags}. {constraints}. Sections: {sections}."
-
 
 let myTrack =
     {
@@ -182,27 +226,30 @@ let myTrack =
         Sections = [
             {
                 Name = "Cold Start"
+                Glitches = [Bitcrush; Stutter]
                 Kind = Intro
                 Energy = Medium
-                Vocals = Whispering
+                Vocals = Grunting
                 Language = Some Sindarin
                 Tags = ["mechanical ambience"; "distant sub"; "no drums"]
                 Variations = []
             }
             {
                 Name = "First Surge"
+                Glitches = [Bitcrush; TimeSlip; Stutter]
                 Kind = Build
                 Energy = Medium
-                Vocals = SoftFemale
-                Language = Some Dutch
+                Vocals = AggressiveFemale
+                Language = Some Quenya
                 Tags = ["syncopated hats"; "rising noise"; "tension"]
                 Variations = ["add glitch stutters"; "filter sweep"]
             }
             {
                 Name = "Main Assault"
+                Glitches = [FrameDrop; DataCorrupt; PhaseTear]
                 Kind = Main
                 Energy = Extreme
-                Vocals = AggressiveFemale
+                Vocals = Growling
                 Language = Some Sindarin
                 Tags = ["4x4 kick"; "screamed chorus"; "raw guitars"; "bass growl"]
                 Variations = ["double-time drums"; "vocal call-and-response"]
@@ -210,14 +257,16 @@ let myTrack =
             {           
                 Name = "First Drop"
                 Kind = Drop
-                Energy = Medium
-                Vocals = SoftFemale
+                Glitches = [Bitcrush; Stutter]
+                Energy = High
+                Vocals = AggressiveFemale
                 Language = Some Dutch
                 Tags = ["4x4 kick"; "screamed chorus"; "raw guitars"; "bass growl"]
                 Variations = ["double-time drums"; "vocal call-and-response"]
             }
             {           
                 Name = "First Build"
+                Glitches = [FrameDrop; DataCorrupt ]
                 Kind = Build
                 Energy = High
                 Vocals = AggressiveFemale
@@ -227,6 +276,7 @@ let myTrack =
             }
             {           
                 Name = "Second Drop"
+                Glitches = [Bitcrush; Stutter; DataCorrupt]
                 Kind = Drop
                 Energy = Medium
                 Vocals = SoftFemale
@@ -236,6 +286,7 @@ let myTrack =
             }
             {           
                 Name = "Second Build"
+                Glitches = [FrameDrop; DataCorrupt]
                 Kind = Build
                 Energy = High
                 Vocals = AggressiveFemale
@@ -245,6 +296,7 @@ let myTrack =
             }
             {
                 Name = "Big Build"
+                Glitches = [FrameDrop; DataCorrupt]
                 Kind = Build
                 Energy = Extreme
                 Vocals = Growling
@@ -254,17 +306,19 @@ let myTrack =
             }
             {
                 Name = "Big Drop"
+                Glitches = [Bitcrush; Stutter]
                 Kind = Drop
                 Energy = Medium
-                Vocals = SoftFemale
+                Vocals = AggressiveFemale
                 Language = Some Sindarin
                 Tags = ["4x4 kick"; "screamed chorus"; "raw guitars"; "bass growl"]
                 Variations = ["double-time drums"; "vocal call-and-response"]                
             }
             {           
                 Name = "Outro"
+                Glitches = [FrameDrop; DataCorrupt]
                 Kind = Outro
-                Energy = Medium
+                Energy = Extreme
                 Vocals = SoftFemale
                 Language = Some Sindarin
                 Tags = ["4x4 kick"; "screamed chorus"; "raw guitars"; "bass growl"]
