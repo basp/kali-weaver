@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Compile Include="Weaver.fs" />
-    <Compile Include="Old.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

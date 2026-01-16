@@ -13,6 +13,11 @@ type Vox =
     | Grunting
     | Cute
     | Kawaii
+    | Aegyo
+    | VisualKey
+    | Shouto
+    | Enka
+    
 
 type Energy =
     | Low
@@ -26,6 +31,17 @@ type Texture =
     | Crackle
     | ChipMelody
     | PulseWave
+    | TimeSlip
+    | PitchShift
+    | DataCorrupt
+    | SyntaxError
+    | FutureGlimpses
+    | PastGlimpses
+    | Ethereal
+    | BufferDrag
+    | PulseWeave
+    | PhaseTear
+    | GrainBurst
 
 type SectionKind =
     | Intro
@@ -38,7 +54,7 @@ type Section = {
     Name: string
     Kind: SectionKind
     Vox: Vox
-    Language: Language
+    Language: Language option
     Energy: Energy
     Textures: Texture list
     Theme: string

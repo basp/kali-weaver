@@ -11,7 +11,7 @@ module AstTests =
             Name = "Cold Start"
             Kind = Intro
             Vox = Growling
-            Language = Japanese
+            Language = Some Japanese
             Energy = High
             Textures = [Bitcrush; Stutter]
             Theme = "Beleriand"
@@ -21,7 +21,7 @@ module AstTests =
         Assert.Equal("Cold Start", section.Name)
         Assert.Equal(Intro, section.Kind)
         Assert.Equal(Growling, section.Vox)
-        Assert.Equal(Japanese, section.Language)
+        Assert.Equal(Some Japanese, section.Language)
         Assert.Equal(High, section.Energy)
 
     [<Fact>]
@@ -30,7 +30,7 @@ module AstTests =
             Name = "Silent Void"
             Kind = Intro
             Vox = Whispering
-            Language = Sindarin
+            Language = Some Sindarin
             Energy = Low
             Textures = []
             Theme = "Silence"
@@ -45,7 +45,7 @@ module AstTests =
             Name = "Experimental"
             Kind = Build
             Vox = Screaming
-            Language = Dutch
+            Language = Some Dutch
             Energy = Extreme
             Textures = []
             Theme = "Chaos"
