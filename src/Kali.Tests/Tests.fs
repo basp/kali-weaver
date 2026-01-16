@@ -1,8 +1,55 @@
-﻿module Tests
+﻿namespace KaliWeaver.Tests
 
-open System
 open Xunit
+open Kali.Weaver
 
-[<Fact>]
-let ``My test`` () =
-    Assert.True(true)
+module AstTests =
+
+    [<Fact>]
+    let ``Section can be created with basic fields`` () =
+        let section = {
+            Name = "Cold Start"
+            Kind = Intro
+            Vox = Growling
+            Language = Japanese
+            Energy = High
+            Textures = [Bitcrush; Stutter]
+            Theme = "Beleriand"
+            Notes = ["no drums"; "kawaii"]
+        }
+
+        Assert.Equal("Cold Start", section.Name)
+        Assert.Equal(Intro, section.Kind)
+        Assert.Equal(Growling, section.Vox)
+        Assert.Equal(Japanese, section.Language)
+        Assert.Equal(High, section.Energy)
+
+    [<Fact>]
+    let ``Section can have empty textures`` () =
+        let section = {
+            Name = "Silent Void"
+            Kind = Intro
+            Vox = Whispering
+            Language = Sindarin
+            Energy = Low
+            Textures = []
+            Theme = "Silence"
+            Notes = []
+        }
+
+        Assert.Empty(section.Textures)
+
+    [<Fact>]
+    let ``Notes can store arbitrary metadata`` () =
+        let section = {
+            Name = "Experimental"
+            Kind = Build
+            Vox = Screaming
+            Language = Dutch
+            Energy = Extreme
+            Textures = []
+            Theme = "Chaos"
+            Notes = ["weird timing"; "glitchy"]
+        }
+
+        Assert.Contains("glitchy", section.Notes)
