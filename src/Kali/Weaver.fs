@@ -1,5 +1,7 @@
 ﻿module Kali.Weaver
 
+open System
+
 type Language =
     | Japanese
     | Sindarin
@@ -16,8 +18,7 @@ type Vox =
     | Aegyo
     | VisualKey
     | Shouto
-    | Enka
-    
+    | Enka   
 
 type Energy =
     | Low
@@ -58,8 +59,48 @@ type Section = {
     Energy: Energy
     Textures: Texture list
     Theme: string
-    Notes: string list 
+    Notes: string list
+    Lines: int * int
+    Direction: string
 }
 
-let weave () =
-    failwith "Not implemented"
+type Track = {
+    Title: string
+    Style: string list
+    Sections: Section list
+}
+
+module private Helpers =
+    let formatVox (vox: Vox) (lang: Language option) =
+        match lang with
+        | Some l -> $"{vox}, {l}"
+        | None -> $"{vox}"
+
+    let formatTextures (textures: Texture list) (notes: string list) =
+        let all = (textures |> List.map (fun t -> $"{t}")) @ notes
+        all |> String.concat ", "
+            
+let compileSection (s: Section) =
+        let (min, max) = s.Lines
+        let voxStr = Helpers.formatVox s.Vox s.Language
+        let texStr = Helpers.formatTextures s.Textures s.Notes
+        $"""[{s.Name.ToUpper()}]
+Vox: {voxStr}
+Energy: {s.Energy}
+Texture: {texStr}
+Theme: {s.Theme}
+Lines: {min}-{max}
+Direction: {s.Direction}"""
+            
+let weave (track: Track) =
+    let header = $"# {track.Title.ToUpper()}"
+    let sections =
+        track.Sections
+        |> List.map compileSection
+        |> String.concat Environment.NewLine
+    $"{header}{Environment.NewLine}{sections}"
+            
+let weaveOld (sections: Section list) =
+    sections
+    |> List.map compileSection
+    |> String.concat Environment.NewLine
