@@ -67,5 +67,72 @@ let myTrack = {
     ]
 }
 
-let prompt = weave myTrack
+let operaTrack = {
+    Title = "NEON_VIBRATO // ACT_I"
+    Style = ["visual-kei"; "symphonic-glitch"; "cyberpunk-opera"; "dramatic"]
+    Sections = [
+        {
+            Name = "Curtain Rise"
+            Kind = Intro
+            Vox = VisualKey
+            Language = Some Japanese
+            Energy = Medium
+            Textures = [Crackle; PastGlimpses]
+            Theme = "An old vinyl recording of a theater performance playing in a ruin"
+            Notes = ["hissing needle"; "distant reverb"]
+            Lines = (2, 4)
+            Direction = "operatic, theatrical, nostalgic"
+        }
+        {
+            Name = "Neural Link"
+            Kind = Build
+            Vox = Aegyo
+            Language = Some Japanese
+            Energy = High
+            Textures = [PulseWeave; ChipMelody]
+            Theme = "Suddenly being pulled into a neon simulation"
+            Notes = ["accelerating pulses"; "high-pitched chirps"]
+            Lines = (3, 5)
+            Direction = "playful, hyper-active, synthetic"
+        }
+        {
+            Name = "The Grand Stage"
+            Kind = Main
+            Vox = Enka
+            Language = Some Japanese
+            Energy = Extreme
+            Textures = [PhaseTear; PitchShift]
+            Theme = "The main performance where the singer's soul fragments"
+            Notes = ["heavy vibrato"; "digital tearing"]
+            Lines = (8, 12)
+            Direction = "soulful, climactic, overwhelming"
+        }
+        {
+            Name = "Critical Error"
+            Kind = Drop
+            Vox = Barking
+            Language = Some Dutch
+            Energy = Extreme
+            Textures = [DataCorrupt; Stutter; Bitcrush]
+            Theme = "The simulation crashes under the emotional weight"
+            Notes = ["machine-gun rhythms"; "raw distortion"]
+            Lines = (2, 3)
+            Direction = "violent, rhythmic, percussive"
+        }
+        {
+            Name = "The Memory Remains"
+            Kind = Outro
+            Vox = Whispering
+            Language = Some Sindarin
+            Energy = Low
+            Textures = [Ethereal; FutureGlimpses]
+            Theme = "A quiet elven lament for the lost digital world"
+            Notes = ["echoing whispers"; "fading light"]
+            Lines = (2, 3)
+            Direction = "sad, haunting, disappearing"
+        }
+    ]
+}
+
+let prompt = weave operaTrack
 printfn $"%s{prompt}"
