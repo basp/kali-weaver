@@ -134,5 +134,21 @@ let operaTrack = {
     ]
 }
 
-let prompt = weave operaTrack
+open Kali.Generator
+
+let randomTrack theme =
+    { Title = $"Randomized {theme}"
+      Style = ["Chip tune"; "Demo scene"; "Glitchy"]
+      Sections = [
+          generateSection "The Beginning" Intro theme
+          generateSection "Buildup" Build theme
+          generateSection "Core 1" Main theme
+          generateSection "Drop 1" Drop theme
+          generateSection "Build 2" Build theme
+          generateSection "The Core" Main theme
+          generateSection "Drop 2" Drop theme
+          generateSection "The End" Outro theme
+      ] }
+
+let prompt = weave (randomTrack "drum and bass")
 printfn $"%s{prompt}"

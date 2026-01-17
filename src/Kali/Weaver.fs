@@ -5,6 +5,9 @@ open System
 type Language =
     | Japanese
     | Sindarin
+    | English
+    | Finnish
+    | Quenya
     | Dutch
 
 type Vox =
@@ -18,7 +21,8 @@ type Vox =
     | Aegyo
     | VisualKey
     | Shouto
-    | Enka   
+    | Enka
+    | Ethereal
 
 type Energy =
     | Low
@@ -81,7 +85,7 @@ module private Helpers =
         all |> String.concat ", "
             
 let compileSection (s: Section) =
-        let (min, max) = s.Lines
+        let min, max = s.Lines
         let voxStr = Helpers.formatVox s.Vox s.Language
         let texStr = Helpers.formatTextures s.Textures s.Notes
         $"""[{s.Name.ToUpper()}]
@@ -99,8 +103,3 @@ let weave (track: Track) =
         |> List.map compileSection
         |> String.concat Environment.NewLine
     $"{header}{Environment.NewLine}{sections}"
-            
-let weaveOld (sections: Section list) =
-    sections
-    |> List.map compileSection
-    |> String.concat Environment.NewLine
