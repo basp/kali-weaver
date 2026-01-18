@@ -10,6 +10,7 @@
     <Compile Include="Templates.fs" />
     <Compile Include="Generator.fs" />
     <Compile Include="Program.fs" />
+    <None Include="Sandbox.fsx" />
   </ItemGroup>
 
 </Project>
