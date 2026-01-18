@@ -150,5 +150,5 @@ let randomTrack theme =
           generateSection "The End" Outro theme
       ] }
 
-let prompt = weave (randomTrack "drum and bass")
+let prompt = weave (randomTrack "EDM")
 printfn $"%s{prompt}"

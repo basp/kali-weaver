@@ -43,22 +43,25 @@ let randomLanguage () =
 
 let randomEnergy kind =
     match kind with
-    | Intro | Outro -> pickOne [Low; Medium]
-    | Build -> pickOne [Medium; High]
-    | Main | Drop -> pickOne [High; Extreme]
+    | Intro | Outro ->
+        pickOne [Low; Medium]
+    | Build ->
+        pickOne [Medium; High]
+    | Main | Drop ->
+        pickOne [High; Extreme]
 
 let randomDirection kind =
     match kind with
     | Intro -> "atmospheric and creeping"
     | Build -> "building tension"
     | Main -> "full emotional weight"
-    | Drop -> "explosve and glitchy"
+    | Drop -> "explosive and glitchy"
     | Outro -> "fading into the void"
     
 let randomLines kind =
     match kind with
-    | Intro | Outro -> (2, 4)
-    | Build | Drop -> (3, 5)
+    | Intro | Outro -> (4, 8)
+    | Build | Drop -> (4, 8)
     | Main -> (8, 12)
     
 let generateSection name kind theme =
