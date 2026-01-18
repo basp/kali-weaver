@@ -13,22 +13,56 @@ let pickSome count (items: 'a list) =
 let randomVox kind =    
     match kind with
     | Intro | Outro ->
-        pickOne [Whispering; Kawaii; Vox.Ethereal; Shouto]
+        pickOne [
+            Whispering
+            Kawaii
+            Vox.Ethereal
+            Shouto
+        ]
     | Build ->
-        pickOne [Shouto; Growling; Barking; VisualKey]
+        pickOne [
+            Shouto
+            Growling
+            Barking
+            VisualKey
+        ]
     | Main | Drop ->
-        pickOne [Growling; Screaming; Barking; Enka; Aegyo]     
+        pickOne [
+            Growling
+            Screaming
+            Barking
+            Enka
+            Aegyo
+        ]     
     
 let randomTextures count kind =
-    let common = [Bitcrush; Stutter; DataCorrupt]
-    let ethereal = [Ethereal; FutureGlimpses; PastGlimpses; PhaseTear]
-    let heavy = [BufferDrag; GrainBurst; PulseWave; SyntaxError]
+    let common = [
+        Bitcrush
+        Stutter
+        DataCorrupt
+    ]
+    let ethereal = [
+        Ethereal
+        FutureGlimpses
+        PastGlimpses
+        PhaseTear
+    ]
+    let heavy = [
+        BufferDrag
+        GrainBurst
+        PulseWave
+        SyntaxError
+    ]
     let pool =
         match kind with
-        | Intro | Outro -> common @ ethereal
-        | Build -> common @ heavy
-        | Main | Drop -> heavy @ ethereal @ [DataCorrupt]
-    pickSome count pool |> List.distinct
+        | Intro | Outro ->
+            common @ ethereal
+        | Build ->
+            common @ heavy
+        | Main | Drop ->
+            heavy @ ethereal @ [DataCorrupt]
+    pickSome count pool
+    |> List.distinct
     
 let randomLanguage () =
     pickOne [
@@ -52,17 +86,25 @@ let randomEnergy kind =
 
 let randomDirection kind =
     match kind with
-    | Intro -> "atmospheric and creeping"
-    | Build -> "building tension"
-    | Main -> "full emotional weight"
-    | Drop -> "explosive and glitchy"
-    | Outro -> "fading into the void"
+    | Intro ->
+        "atmospheric and creeping"
+    | Build ->
+        "building tension"
+    | Main ->
+        "full emotional weight"
+    | Drop ->
+        "explosive and glitchy"
+    | Outro ->
+        "fading into the void"
     
 let randomLines kind =
     match kind with
-    | Intro | Outro -> (4, 8)
-    | Build | Drop -> (4, 8)
-    | Main -> (8, 12)
+    | Intro | Outro ->
+        (4, 8)
+    | Build | Drop ->
+        (4, 8)
+    | Main ->
+        (8, 12)
     
 let generateSection name kind theme =
     { Name = name

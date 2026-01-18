@@ -111,7 +111,7 @@ let operaTrack = {
             Name = "Critical Error"
             Kind = Drop
             Vox = Barking
-            Language = Some Dutch
+            Language = Some Finnish
             Energy = Extreme
             Textures = [DataCorrupt; Stutter; Bitcrush]
             Theme = "The simulation crashes under the emotional weight"
@@ -150,5 +150,5 @@ let randomTrack theme =
           generateSection "The End" Outro theme
       ] }
 
-let prompt = weave (randomTrack "EDM")
-printfn $"%s{prompt}"
+let track = randomTrack "EDM"
+printfn $"%A{track}"

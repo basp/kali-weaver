@@ -16,6 +16,7 @@ type Vox =
     | Screaming
     | Barking
     | Grunting
+    | Shouting
     | Cute
     | Kawaii
     | Aegyo
@@ -83,23 +84,15 @@ module private Helpers =
     let formatTextures (textures: Texture list) (notes: string list) =
         let all = (textures |> List.map (fun t -> $"{t}")) @ notes
         all |> String.concat ", "
-            
-let compileSection (s: Section) =
-        let min, max = s.Lines
-        let voxStr = Helpers.formatVox s.Vox s.Language
-        let texStr = Helpers.formatTextures s.Textures s.Notes
-        $"""[{s.Name.ToUpper()}]
-Vox: {voxStr}
-Energy: {s.Energy}
-Texture: {texStr}
-Theme: {s.Theme}
-Lines: {min}-{max}
-Direction: {s.Direction}"""
-            
-let weave (track: Track) =
-    let header = $"# {track.Title.ToUpper()}"
-    let sections =
+
+let formatSunoStyle (track: Track) =
+    let textureStyles =
         track.Sections
-        |> List.map compileSection
-        |> String.concat Environment.NewLine
-    $"{header}{Environment.NewLine}{sections}"
+        |> List.collect (fun s -> s.Textures)
+        |> List.map (fun t -> $"{t}")
+        |> List.distinct
+    let allStyles = track.Style @ textureStyles
+    allStyles
+    |> String.concat ", "
+    |> (fun s -> s.ToLower())
+    
