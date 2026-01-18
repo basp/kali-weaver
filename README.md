@@ -36,6 +36,36 @@ creative flow.
 (..instrumental..)
 ```
 
+Alternative:
+```aiignore
+[boot sequence]
+(instrumental — slow, glitch‑ambient initialization)
+
+[system uplink]
+(instrumental — steady pulse, rising signal paths)
+
+[core dump 1]
+(instrumental — fast, harsh bit‑crush overflow)
+
+[data surge]
+(instrumental — fast glitch bloom, unstable timing)
+
+[memory fragment]
+(instrumental — mid‑tempo echoes, fractured recall)
+
+[overclock]
+(instrumental — fast, strained circuitry and heat)
+
+[core dump 2]
+(instrumental — accelerated pulse, raw demoscene drive)
+
+[kernel panic]
+(instrumental — driving collapse, pcm noise bursts)
+
+[final echo]
+(instrumental — slow fade, lo‑fi static residue)
+```
+
 ### Styles prompt
 ```aiignore
 [boot sequence]

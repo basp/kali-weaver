@@ -5,8 +5,8 @@
 // * 1 emotional direction
 // * 1-2 stylistic cues max
 
-// Suno treats parentheses as non-singing metadata so it won't
-// try to vocalize them.
+// Suno treats parentheses as non-singing metadata,
+// so it won't try to vocalize them.
 // You can use:
 // * (no lyrics)
 // * (instrumental only)
@@ -28,12 +28,14 @@ type Energy =
     | Extreme
 
 type Vox =
-    | Grunting
-    | Growling
-    | Screaming
-    | Whispering
-    | Cute
-    | VisualKey
+    | Whispering | Soft
+    | Cute | Light
+    | Spoken | Narrative
+    | Growling | Aggressive
+    | Grunting | Raw
+    | Processed | Digital
+    | Neutral | Unemotional
+    | Ethereal | Atmospheric
 
 type Texture =
     | Ethereal
@@ -50,121 +52,250 @@ type Texture =
     | FutureGlimpses
     | VaporTrail
 
-type Tempo =
-    | Slow
-    | Medium
-    | Fast
-    | Extreme
-
-let slowTempo = [
-    "slow tempo"
-    "low-pulse rhythm"
-    "drifting pase"
-    "unhurried movement"
-]
-
-let mediumTempo = [
-    "steady tempo"
-    "mid-pulse groove"
-    "moderate rhythm drive"
-    "balanced pacing"
-]
-
-let fastTempo = [
-    "fast bpm"
-    "driving tempo"
-    "accelerated pulse"
-    "high-energy rythm"
-]
-
-let extremeTempo = [
-    "hyper-tempo"
-    "rapid-fire rhythm"
-    "breakneck pulse"
-    "extreme bpm energy"
-]
+type Direction =
+    | Introductory | Awakening
+    | Connecting | Building
+    | Impact | Burst
+    | Surge | Acceleration
+    | Reflective | Fragmented
+    | Strain | Overload
+    | Collapse | Failure
+    | Outro | Dissipation
+    | Static | Steady
+    | Functional | Transitional
+    | Ambient | Background
+    | LoopLike | Mechanical
+    | Emotionless | Analytical
 
 type Section =
     { Name: string
       Vox: Vox option
       Language: Language option
       Energy: Energy
-      Direction: string
+      Direction: Direction
       Style: Texture list }
     
 type Track =
     { Name: string
       Sections: Section list }
+
+module Vocals =
+    // These keep the vocal presence light and atmospheric.
+    let whispering = [
+        "whispering"
+        "soft spoken"
+        "breathy tone"
+        "hushed delivery"
+    ]
+    
+    // Great for contract against glitchy or harsh production.
+    let cute = [
+        "cute tone"
+        "light delivery"
+        "soft melodic phrasing"
+        "gentle brightness"
+    ]
+    
+    // Useful for system logs, monologues, or diagnostic-style sections.
+    let spoken = [
+        "spoken cadence"
+        "narrative tone"
+        "speech-like delivery"
+        "low-melody phrasing"
+    ]
+    
+    // Pars extremely well with demoscene and bit-crush aesthetics.
+    let growling = [
+        "growling tone"
+        "aggressive delivery"
+        "rough vocal texture"
+        "gritty resonance"
+    ]
+    
+    // Raw energy class - great for core dumps and overclock sections.
+    let grunting = [
+        "grunting tone"
+        "raw vocal attack"
+        "percussive delivery"
+        "low-melody growl"
+    ]
+    
+    // Perfect for demoscene, cracktro, and system-themed tracks.
+    let processed = [
+        "digital-processed tone"
+        "glitch-vocal texture"
+        "synthetic resonance"
+        "bit-crushed voice"
+    ]
+    
+    // Great for intros, outros, or memory-fragmented sections.
+    let ethereal = [
+        "ethereal tone"
+        "floating delivery"
+        "soft atmospheric voice"
+        "reverb-washed phrasing"
+    ]
+    
+    // Usxeful for system messages, logs, or diagnostic sequences.
+    let neutral = [
+        "ethereal tone"
+        "floating delivery"
+        "soft atmospheric voice"
+        "reverb-washed phrasing"
+    ]
+    
+module Directions =              
+    let introductory = [
+        "soft emergence"
+        "gentle initialization"
+        "rising awareness"
+        "quiet activation"
+    ]
+
+    let connecting = [
+        "rising tension"
+        "signal alignment"
+        "gathering momentum"
+        "expanding motion"
+    ]
+
+    let impact = [
+        "data overflow"
+        "energy burst"
+        "forceful release"
+        "system rupture"
+    ]
+
+    let surge = [
+        "glitch bloom"
+        "voltage surge"
+        "unstable expansion"
+        "accelerated escalation"
+    ]
+
+    let reflective = [
+        "fractured recall"
+        "echoed memory"
+        "broken reflection"
+        "fading impressions"
+    ]
+
+    let strain = [
+        "system strain"
+        "pressure buildup"
+        "overloaded circuits"
+        "critical instability"
+    ]
+    
+    let collapse = [
+        "system collapse"
+        "critical failure"
+        "structural breakdown"
+        "terminal instability"
+    ]
+    
+    let outro = [
+        "fading residue"
+        "dissolving signal"
+        "quiet decay"
+        "soft shutdown"
+    ]
+    
+    // These keep the music from rising or falling emotionally.
+    let steady = [
+        "steady state"
+        "static texture"
+        "continuous motion"
+        "stable atmosphere"
+    ]
+    
+    // This is perfect for bridges or mid-track resets.
+    let functional = [
+        "neutral transition"
+        "functional movement"
+        "simple connective flow"
+        "unbiased progression"        
+    ]
+    
+    // These keep the section from feeling empty while avoiding emotional cues.
+    let ambient = [
+        "ambient presence"
+        "background texture"
+        "soft neutral layer"
+        "non-directive atmosphere"
+    ]
+    
+    // Fits with demoscene aesthetic.
+    let mechanical = [
+        "mechanical repetition"
+        "neutral loop motion"
+        "algorithmic flow"
+        "steady patterning"
+    ]
+    
+    // Great for system-like or diagnostic movements.
+    let analytical = [
+        "emotionless signal"
+        "analytical tone"
+        "unbiased processing"
+        "flat digital presence"
+    ]
+
+module Energies =    
+    let slow = [        
+        "slow tempo"
+        "low-pulse rhythm"
+        "drifting pase"
+        "unhurried movement"
+    ]
+
+    let medium = [
+        "steady tempo"
+        "mid-pulse groove"
+        "moderate rhythm drive"
+        "balanced pacing"
+    ]
+
+    let fast = [
+        "fast bpm"
+        "driving tempo"
+        "accelerated pulse"
+        "high-energy rythm"
+    ]
+
+    let extreme = [
+        "hyper-tempo"
+        "rapid-fire rhythm"
+        "breakneck pulse"
+        "extreme bpm energy"
+    ]   
+
+let direction d =
+    let directions =
+        match d with
+        | Introductory | Awakening ->
+            Directions.introductory
+        | Connecting | Building ->
+            Directions.connecting
+        | Impact | Burst ->
+            Directions.impact
+        | Surge | Acceleration ->
+            Directions.surge
+        | Reflective | Fragmented ->
+            Directions.reflective
+        | Strain | Overload ->
+            Directions.strain
+        | Collapse | Failure ->
+            Directions.collapse
+        | Outro | Dissipation->
+            Directions.outro
+    directions |> List.randomChoice   
     
 let defaultSection =
     { Name = "untitled"
       Vox = None
-      Language = Option.None
+      Language = None
       Energy = Energy.Medium
-      Direction = "neutral"
+      Direction = Direction.Steady
       Style = [] }
 
-let sections = [
-    // intro
-    { defaultSection with
-        Name = "boot sequence"
-        Energy = Low
-        Direction = "awakening from static, slow system initialization"
-        Style = [Ethereal; PhaseTear] }
-    
-    // build 1
-    { defaultSection with
-        Name = "system uplink"
-        Energy = Energy.Medium
-        Direction = "signal rising, channels opening, tension forming"
-        Style = [PulseWave; GrainBurst] }
-    
-    // main 1
-    { defaultSection with
-        Name ="core dump 1"
-        Energy = High
-        Direction = "raw data overflow, emotional rupture"
-        Style = [DataCorrupt; Overdrive] }
-    
-    // drop 1
-    { defaultSection with
-        Name = "data surge"
-        Energy = Energy.Medium
-        Direction = "glitch bloom, sudden voltage spike"
-        Style = [GlitchPop; BufferDrag] }
-    
-    // break
-    { defaultSection with
-        Name = "memory fragment"
-        Energy = High
-        Direction = "fractured recall, shimmering instability"
-        Style = [PastGlimpses; Stutter] }
-    
-    // build 2
-    { defaultSection with
-        Name = "overclock"
-        Energy = Energy.Medium
-        Direction = "pressure rising, system strain, heat building"
-        Style = [PulseWave; CircuitBend] }
-    
-    // main 2
-    { defaultSection with
-        Name = "core dump 2"
-        Energy = High
-        Direction = "full emotional release, catastrophic overflow"
-        Style = [DataCorrupt; Ethereal]}
-    
-    // drop 2
-    { defaultSection with
-        Name = "kernel panic"
-        Energy = Energy.Medium
-        Direction = "violent glitch collapse, system failure cascade"
-        Style = [GrainBurst; FutureGlimpses] }
-    
-    // outro
-    { defaultSection with
-        Name = "final echo"
-        Energy = Low
-        Direction = "dissolving into silence, fading system residue"
-        Style = [Stutter; VaporTrail] }
-]

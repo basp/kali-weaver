@@ -1,98 +1,324 @@
 ﻿module Kali.Weaver
 
-open System
+// For each section, include:
+// * 1 vocal identity
+// * 1 language
+// * 1 energy level
+// * 1 emotional direction
+// * 1-2 stylistic cues max
+
+// Suno treats parentheses as non-singing metadata,
+// so it won't try to vocalize them.
+// You can use:
+// * (no lyrics)
+// * (instrumental only)
+// * (vocalise)
+// * (breath / texture only)
 
 type Language =
-    | Japanese
-    | Sindarin
     | English
-    | Finnish
-    | Quenya
     | Dutch
-
-type Vox =
-    | Growling
-    | Whispering
-    | Screaming
-    | Barking
-    | Grunting
-    | Shouting
-    | Cute
-    | Kawaii
-    | Aegyo
-    | VisualKey
-    | Shouto
-    | Enka
-    | Ethereal
+    | Finnish
+    | Japanese
+    | Quenya
+    | Sindarin
 
 type Energy =
     | Low
     | Medium
     | High
     | Extreme
-    
+
+type Vox =
+    | Whispering | Soft
+    | Cute | Light
+    | Spoken | Narrative
+    | Growling | Aggressive
+    | Grunting | Raw
+    | Processed | Digital
+    | Neutral | Unemotional
+    | Ethereal | Atmospheric
+
 type Texture =
-    | Bitcrush
-    | Stutter
-    | Crackle
-    | ChipMelody
-    | PulseWave
-    | TimeSlip
-    | PitchShift
-    | DataCorrupt
-    | SyntaxError
-    | FutureGlimpses
-    | PastGlimpses
     | Ethereal
-    | BufferDrag
-    | PulseWeave
     | PhaseTear
+    | PulseWave
     | GrainBurst
+    | DataCorrupt
+    | Overdrive
+    | GlitchPop
+    | BufferDrag
+    | PastGlimpses
+    | Stutter
+    | CircuitBend
+    | FutureGlimpses
+    | VaporTrail
 
-type SectionKind =
-    | Intro
-    | Build
-    | Main
-    | Drop
-    | Outro
+type Direction =
+    | Introductory | Awakening
+    | Connecting | Building
+    | Impact | Burst
+    | Surge | Acceleration
+    | Reflective | Fragmented
+    | Strain | Overload
+    | Collapse | Failure
+    | Outro | Dissipation
+    | Static | Steady
+    | Functional | Transitional
+    | Ambient | Background
+    | LoopLike | Mechanical
+    | Emotionless | Analytical
 
-type Section = {
-    Name: string
-    Kind: SectionKind
-    Vox: Vox
-    Language: Language option
-    Energy: Energy
-    Textures: Texture list
-    Theme: string
-    Notes: string list
-    Lines: int * int
-    Direction: string
-}
-
-type Track = {
-    Title: string
-    Style: string list
-    Sections: Section list
-}
-
-module private Helpers =
-    let formatVox (vox: Vox) (lang: Language option) =
-        match lang with
-        | Some l -> $"{vox}, {l}"
-        | None -> $"{vox}"
-
-    let formatTextures (textures: Texture list) (notes: string list) =
-        let all = (textures |> List.map (fun t -> $"{t}")) @ notes
-        all |> String.concat ", "
-
-let formatSunoStyle (track: Track) =
-    let textureStyles =
-        track.Sections
-        |> List.collect (fun s -> s.Textures)
-        |> List.map (fun t -> $"{t}")
-        |> List.distinct
-    let allStyles = track.Style @ textureStyles
-    allStyles
-    |> String.concat ", "
-    |> (fun s -> s.ToLower())
+type Section =
+    { Name: string
+      Vox: Vox option
+      Language: Language option
+      Energy: Energy
+      Direction: Direction
+      Style: Texture list }
     
+type Track =
+    { Name: string
+      Sections: Section list }
+
+module Vocals =
+    // These keep the vocal presence light and atmospheric.
+    let whispering = [
+        "whispering"
+        "soft spoken"
+        "breathy tone"
+        "hushed delivery"
+    ]
+    
+    // Great for contract against glitchy or harsh production.
+    let cute = [
+        "cute tone"
+        "light delivery"
+        "soft melodic phrasing"
+        "gentle brightness"
+    ]
+    
+    // Useful for system logs, monologues, or diagnostic-style sections.
+    let spoken = [
+        "spoken cadence"
+        "narrative tone"
+        "speech-like delivery"
+        "low-melody phrasing"
+    ]
+    
+    // Pars extremely well with demoscene and bit-crush aesthetics.
+    let growling = [
+        "growling tone"
+        "aggressive delivery"
+        "rough vocal texture"
+        "gritty resonance"
+    ]
+    
+    // Raw energy class - great for core dumps and overclock sections.
+    let grunting = [
+        "grunting tone"
+        "raw vocal attack"
+        "percussive delivery"
+        "low-melody growl"
+    ]
+    
+    // Perfect for demoscene, cracktro, and system-themed tracks.
+    let processed = [
+        "digital-processed tone"
+        "glitch-vocal texture"
+        "synthetic resonance"
+        "bit-crushed voice"
+    ]
+    
+    // Great for intros, outros, or memory-fragmented sections.
+    let ethereal = [
+        "ethereal tone"
+        "floating delivery"
+        "soft atmospheric voice"
+        "reverb-washed phrasing"
+    ]
+    
+    // Usxeful for system messages, logs, or diagnostic sequences.
+    let neutral = [
+        "ethereal tone"
+        "floating delivery"
+        "soft atmospheric voice"
+        "reverb-washed phrasing"
+    ]
+    
+module Directions =              
+    let introductory = [
+        "soft emergence"
+        "gentle initialization"
+        "rising awareness"
+        "quiet activation"
+    ]
+
+    let connecting = [
+        "rising tension"
+        "signal alignment"
+        "gathering momentum"
+        "expanding motion"
+    ]
+
+    let impact = [
+        "data overflow"
+        "energy burst"
+        "forceful release"
+        "system rupture"
+    ]
+
+    let surge = [
+        "glitch bloom"
+        "voltage surge"
+        "unstable expansion"
+        "accelerated escalation"
+    ]
+
+    let reflective = [
+        "fractured recall"
+        "echoed memory"
+        "broken reflection"
+        "fading impressions"
+    ]
+
+    let strain = [
+        "system strain"
+        "pressure buildup"
+        "overloaded circuits"
+        "critical instability"
+    ]
+    
+    let collapse = [
+        "system collapse"
+        "critical failure"
+        "structural breakdown"
+        "terminal instability"
+    ]
+    
+    let outro = [
+        "fading residue"
+        "dissolving signal"
+        "quiet decay"
+        "soft shutdown"
+    ]
+    
+    // These keep the music from rising or falling emotionally.
+    let steady = [
+        "steady state"
+        "static texture"
+        "continuous motion"
+        "stable atmosphere"
+    ]
+    
+    // This is perfect for bridges or mid-track resets.
+    let functional = [
+        "neutral transition"
+        "functional movement"
+        "simple connective flow"
+        "unbiased progression"        
+    ]
+    
+    // These keep the section from feeling empty while avoiding emotional cues.
+    let ambient = [
+        "ambient presence"
+        "background texture"
+        "soft neutral layer"
+        "non-directive atmosphere"
+    ]
+    
+    // Fits with demoscene aesthetic.
+    let mechanical = [
+        "mechanical repetition"
+        "neutral loop motion"
+        "algorithmic flow"
+        "steady patterning"
+    ]
+    
+    // Great for system-like or diagnostic movements.
+    let analytical = [
+        "emotionless signal"
+        "analytical tone"
+        "unbiased processing"
+        "flat digital presence"
+    ]
+
+module Energies =    
+    let slow = [        
+        "slow tempo"
+        "low-pulse rhythm"
+        "drifting pase"
+        "unhurried movement"
+    ]
+
+    let medium = [
+        "steady tempo"
+        "mid-pulse groove"
+        "moderate rhythm drive"
+        "balanced pacing"
+    ]
+
+    let fast = [
+        "fast bpm"
+        "driving tempo"
+        "accelerated pulse"
+        "high-energy rythm"
+    ]
+
+    let extreme = [
+        "hyper-tempo"
+        "rapid-fire rhythm"
+        "breakneck pulse"
+        "extreme bpm energy"
+    ]   
+
+let pickDirection d =
+    let tags =
+        match d with
+        | Introductory | Awakening ->
+            Directions.introductory
+        | Connecting | Building ->
+            Directions.connecting
+        | Impact | Burst ->
+            Directions.impact
+        | Surge | Acceleration ->
+            Directions.surge
+        | Reflective | Fragmented ->
+            Directions.reflective
+        | Strain | Overload ->
+            Directions.strain
+        | Collapse | Failure ->
+            Directions.collapse
+        | Outro | Dissipation->
+            Directions.outro
+    tags |> List.randomChoice   
+    
+let pickEnergy e =
+    let tags =
+        match e with
+        | Low -> Energies.slow
+        | Medium -> Energies.medium
+        | High -> Energies.fast
+        | Extreme -> Energies.extreme
+    tags |> List.randomChoice
+    
+let pickVocals v =
+    let tags =
+        match v with
+        | Whispering  | Soft -> Vocals.whispering
+        | Cute | Light -> Vocals.cute
+        | Spoken | Narrative -> Vocals.spoken
+        | Growling | Aggressive -> Vocals.growling
+        | Grunting | Raw -> Vocals.grunting
+        | Processed | Digital -> Vocals.processed
+        | Neutral | Unemotional -> Vocals.neutral
+        | Vox.Ethereal | Atmospheric -> Vocals.ethereal
+    tags |> List.randomChoice
+    
+let defaultSection =
+    { Name = "untitled"
+      Vox = None
+      Language = None
+      Energy = Energy.Medium
+      Direction = Direction.Steady
+      Style = [] }

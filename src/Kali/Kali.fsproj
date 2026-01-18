@@ -7,10 +7,9 @@
 
   <ItemGroup>
     <Compile Include="Weaver.fs" />
-    <Compile Include="Templates.fs" />
-    <Compile Include="Generator.fs" />
     <Compile Include="Program.fs" />
     <None Include="Sandbox.fsx" />
+    <Compile Include="OldSections.fs" />
   </ItemGroup>
 
 </Project>
