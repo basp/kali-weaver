@@ -1,4 +1,4 @@
-﻿namespace KaliWeaver.Tests
+﻿module Kali.Tests
 
 open Xunit
 
