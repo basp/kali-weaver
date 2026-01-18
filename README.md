@@ -95,3 +95,63 @@ grunting finnish • medium energy • driving tempo • system collapse • pcm
 [final echo]
 whispering finnish • low energy • slow tempo • fading static • lo‑fi residue
 ```
+
+### Alternate lyrics 
+```aiignore
+[boot sequence]
+(instrumental — slow tempo • steady state • glitch‑ambient initialization)
+
+[system uplink]
+(instrumental — steady tempo • neutral transition • rising signal paths)
+
+[core dump 1]
+(instrumental — fast bpm • data overflow • harsh bit‑crush and pcm grit)
+
+[data surge]
+(instrumental — fast bpm • voltage surge • unstable expansion • chip‑lead arps)
+
+[memory fragment]
+(instrumental — moderate rhythm drive • fractured recall • ambient presence)
+
+[overclock]
+(instrumental — fast bpm • system strain • overloaded circuits • bit‑crush pulse)
+
+[core dump 2]
+(instrumental — accelerated pulse • energy burst • raw demoscene drive)
+
+[kernel panic]
+(instrumental — driving tempo • system collapse • critical failure • pcm noise distortion)
+
+[final echo]
+(instrumental — slow tempo • dissolving signal • quiet decay • lo‑fi residue)
+```
+
+### Alternate styles
+```aiignore
+[boot sequence]
+whispering dutch • low energy • slow tempo • steady state • raw glitch ambience • bit‑crush haze
+
+[system uplink]
+growling sindarin • medium energy • steady tempo • neutral transition • signal alignment • circuit‑bent pulse
+
+[core dump 1]
+grunting finnish • high energy • fast bpm • data overflow • harsh bit‑crush + pcm grit
+
+[data surge]
+cute sindarin • medium energy • fast bpm • voltage surge • unstable expansion • chip‑lead arps
+
+[memory fragment]
+cute dutch • medium energy • moderate rhythm drive • fractured recall • ambient presence • grain‑burst edges
+
+[overclock]
+growling sindarin • medium‑high energy • fast bpm • system strain • overloaded circuits • bit‑crush pulse
+
+[core dump 2]
+cute japanese • high energy • accelerated pulse • energy burst • raw demoscene drive
+
+[kernel panic]
+grunting finnish • medium energy • driving tempo • system collapse • critical failure • pcm noise distortion
+
+[final echo]
+whispering finnish • low energy • slow tempo • dissolving signa
+```

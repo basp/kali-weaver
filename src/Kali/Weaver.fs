@@ -29,7 +29,7 @@ type Energy =
     | High
     | Extreme
 
-type Vox =
+type Voice =
     | Whispering | Soft
     | Cute | Light
     | Spoken | Narrative
@@ -38,6 +38,8 @@ type Vox =
     | Processed | Digital
     | Neutral | Unemotional
     | Ethereal | Atmospheric
+
+type Vox = (Language * Voice list)
 
 type Texture =
     | Ethereal
@@ -71,7 +73,7 @@ type Direction =
 
 type Section =
     { Name: string
-      Vox: Vox option
+      Vox: Voice option
       Language: Language option
       Energy: Energy
       Direction: Direction
@@ -81,7 +83,7 @@ type Track =
     { Name: string
       Sections: Section list }
 
-module Vocals =
+module Vox =
     // These keep the vocal presence light and atmospheric.
     let whispering = [
         "whispering"
@@ -140,10 +142,10 @@ module Vocals =
     
     // Usxeful for system messages, logs, or diagnostic sequences.
     let neutral = [
-        "ethereal tone"
-        "floating delivery"
-        "soft atmospheric voice"
-        "reverb-washed phrasing"
+        "nutral tone"
+        "emotionless delivery"
+        "flat vocal presence"
+        "analytical phrasing"
     ]
     
 module Directions =              
@@ -243,11 +245,11 @@ module Directions =
         "flat digital presence"
     ]
 
-module Energies =    
-    let slow = [        
+module Energies1 =    
+    let low = [        
         "slow tempo"
         "low-pulse rhythm"
-        "drifting pase"
+        "drifting pace"
         "unhurried movement"
     ]
 
@@ -258,7 +260,7 @@ module Energies =
         "balanced pacing"
     ]
 
-    let fast = [
+    let high = [
         "fast bpm"
         "driving tempo"
         "accelerated pulse"
@@ -272,47 +274,73 @@ module Energies =
         "extreme bpm energy"
     ]   
 
+module Energies2 =
+    let low = [
+        "low-slow drift"
+        "soft-slow pulse"
+        "quiet-slow motion"
+        "low-tempo haze"
+    ]
+    
+    let medium = [
+        "mid-steady flow"
+        "medium-steady pulse"
+        "balanced-tempo motion"
+        "steady-mid presence"
+    ]
+    
+    let high = [
+        "high-fast drive"
+        "fast-high intensity"
+        "rapid-high pulse"
+        "fast-energy burst"
+    ]
+    
+    let extreme = [
+        "extreme-accelerated surge"
+        "hyper-accelerated pulse"
+        "breakneck-energy spike"
+        "accelerated-extreme burst"
+    ]
+
 let pickDirection d =
     let tags =
         match d with
-        | Introductory | Awakening ->
-            Directions.introductory
-        | Connecting | Building ->
-            Directions.connecting
-        | Impact | Burst ->
-            Directions.impact
-        | Surge | Acceleration ->
-            Directions.surge
-        | Reflective | Fragmented ->
-            Directions.reflective
-        | Strain | Overload ->
-            Directions.strain
-        | Collapse | Failure ->
-            Directions.collapse
-        | Outro | Dissipation->
-            Directions.outro
+        | Introductory | Awakening -> Directions.introductory
+        | Connecting | Building -> Directions.connecting
+        | Impact | Burst -> Directions.impact
+        | Surge | Acceleration -> Directions.surge
+        | Reflective | Fragmented -> Directions.reflective
+        | Strain | Overload -> Directions.strain
+        | Collapse | Failure -> Directions.collapse
+        | Outro | Dissipation-> Directions.outro
+        | Static | Steady -> Directions.steady
+        | Functional | Transitional -> Directions.functional
+        | Ambient | Background -> Directions.ambient
+        | LoopLike | Mechanical -> Directions.mechanical
+        | Emotionless | Analytical -> Directions.analytical
     tags |> List.randomChoice   
     
 let pickEnergy e =
     let tags =
         match e with
-        | Low -> Energies.slow
-        | Medium -> Energies.medium
-        | High -> Energies.fast
-        | Extreme -> Energies.extreme
+        | Low -> Energies2.low
+        | Medium -> Energies2.medium
+        | High -> Energies2.high
+        | Extreme -> Energies2.extreme
     tags |> List.randomChoice
     
 let pickVocals v =
     let tags =
         match v with
-        | Whispering  | Soft -> Vocals.whispering
-        | Cute | Light -> Vocals.cute
-        | Spoken | Narrative -> Vocals.spoken
-        | Growling | Aggressive -> Vocals.growling
-        | Grunting | Raw -> Vocals.grunting
-        | Processed | Digital -> Vocals.processed
-        | Neutral | Unemotional -> Vocals.neutral
-        | Vox.Ethereal | Atmospheric -> Vocals.ethereal
+        | Whispering  | Soft -> Vox.whispering
+        | Cute | Light -> Vox.cute
+        | Spoken | Narrative -> Vox.spoken
+        | Growling | Aggressive -> Vox.growling
+        | Grunting | Raw -> Vox.grunting
+        | Processed | Digital -> Vox.processed
+        | Neutral | Unemotional -> Vox.neutral
+        | Voice.Ethereal | Atmospheric -> Vox.ethereal
     tags |> List.randomChoice
     
 let defaultSection =
@@ -322,3 +350,48 @@ let defaultSection =
       Energy = Energy.Medium
       Direction = Direction.Steady
       Style = [] }
+    
+let example = {
+    Name = "Kali Weaver"
+    Sections = [
+        { defaultSection with
+            Name = "boot sequence"
+            Direction = Introductory
+            Energy = Low }
+        { defaultSection with
+            Name = "system uplink"
+            Direction = Connecting
+            Energy = High }
+        { defaultSection with
+            Name = "core dump 1"
+            Direction = Impact
+            Energy = Extreme }
+        { defaultSection with
+            Name = "data surge"
+            Direction = Surge
+            Energy = High }
+        { defaultSection with
+            Name = "memory fragment"
+            Direction = Reflective
+            Energy = Medium }
+        { defaultSection with
+            Name = "overclock"
+            Direction = Strain
+            Energy = Low }
+        { defaultSection with
+            Name = "core dump 2"
+            Direction = Collapse
+            Energy = Extreme }
+        { defaultSection with
+            Name = "kernel panic"
+            Energy = Low }
+        { defaultSection with
+            Name = "final echo"
+            Direction = Outro
+            Energy = High }                
+    ]
+}
+
+let compileSection (s: Section) =
+    
+    ""
